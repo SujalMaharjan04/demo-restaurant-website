@@ -1,3 +1,4 @@
+<?php include('admin_index.php'); ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,18 +8,7 @@
     <link rel = "stylesheet" href = "assets/css/admin_style.css">
 </head>
 <body>
-    <div class = "container">
-        <div class="dashboard">
-            <h1>Admin</h1>
-            <div class="dashboard-item">
-                <a href = "#">Reservation</a>
-                <a href = "#">Menu</a>
-                <a href = "#">About</a>
-                <a href = "#">Message</a>
-            </div>
-        </div>
-
-        <div class="main">
+    <div class="main">
             <div class="main-top">
                 <h1>Dashboard</h1>
                 <button onclick = "logout()">Log Out</button>
@@ -29,7 +19,6 @@
                 <div class="card">Menu</div>
 
             </div>
-        </div>
     </div>
 </body>
 </html>
