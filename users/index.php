@@ -15,9 +15,6 @@
         if (!mysqli_query($link, $query)) {
             echo '<script>alert("Your registration has failed due to some error. Try again later.")</script>';
         } 
-
-
-
     }
 
 
