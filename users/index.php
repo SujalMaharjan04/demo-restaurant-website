@@ -3,12 +3,19 @@
 
     //Checking for the validation of the reservation form
     if ($_POST) {
-        $name = $_POST['name'];
-        $phone_num = $_POST['phonenum'];
-        $email = $_POST['email'];
-        $numofPeople = $_POST['numofPeople'];
-        $dateTime = $_POST['dateTime'];
-        $message = $_POST['message'];
+        $name = mysqli_real_escape_string($link, $_POST['name']);
+        $phone_num = mysqli_real_escape_string($link, $_POST['phonenum']);
+        $email = mysqli_real_escape_string($link, $_POST['email']);
+        $numofPeople = (int) $_POST['numofPeople'];
+        $dateTime = mysqli_real_escape_string($link, $_POST['dateTime']);
+        $message = mysqli_real_escape_string($link, $_POST['message']);
+
+        $query = "INSERT INTO reservation (name, phone_number, email, num_of_people, dateTime, message) values ('$name', '$phone_num', '$email', $numofPeople, '$dateTime', '$message')";
+
+        if (!mysqli_query($link, $query)) {
+            echo '<script>alert("Your registration has failed due to some error. Try again later.")</script>';
+        } 
+
 
 
     }
@@ -131,7 +138,7 @@
 
                 <div class="form-group">
                     <label for = "dateTime" class = "required">When?</label >
-                    <input type = "datetime" name = "dateTime" id = "dateTime"  placeholder = "09/05/2025.12:00" required>
+                    <input type = "datetime-local" name = "dateTime" id = "dateTime"  placeholder = "09/05/2025.12:00" required>
                 </div>
 
                 <div class="form-group">
