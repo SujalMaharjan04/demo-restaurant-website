@@ -70,6 +70,25 @@ a:hover {
     margin-right: 50px;
 }
 
+#openModal{
+    margin: -6px;
+    width: 100px;
+    font-weight: bold;
+    letter-spacing: 0.5px;
+    background-color: rgba(229, 163, 20, 0.425);
+    color: white;
+    border-radius: 10px;
+    border: 2px solid rgba(0, 0, 0, 0);
+    transition: 0.3s ease;
+}
+
+#openModal:hover {
+    cursor:pointer;
+    box-shadow: 5px 5px 10px 10px rgb(0, 0, 0);
+}
+
+
+
 .home {
     max-width: 2000px;
     position: relative;
@@ -205,7 +224,7 @@ a:hover {
     padding: 20px;
 }
 
-.resrevation>h2 {
+.reservation>h2 {
     font-size: 40px;
 }
 
@@ -282,3 +301,75 @@ form {
     font-size: 18px;
     font-weight: bold;
 }
+
+.modal-container {
+    display: none;
+    position:fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color:rgba(0, 0, 0, 0.421);
+    overflow: auto;
+    z-index: 500;
+}
+
+.modal-content {
+    margin: 10%;
+    padding: 30px;
+    background-color:white;
+    width: 300px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px black;
+    position: relative;
+    top: 40px;
+    left: 365px;
+}
+
+.modal-content h2 {
+    text-align: center;
+    font-size: 30px;
+}
+
+#closebtn {
+    position: absolute;
+    top: 15px;
+    right: 30px;
+    font-weight: bold;
+    font-size: 28px;
+    color: gray;
+    cursor: pointer;
+}
+
+#closebtn:hover {
+    color: rgba(128, 128, 128, 0.368);
+}
+
+.modal-form {
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+}
+
+.modal-form input {
+    margin: 10px 0;
+    padding: 10px;
+    border-radius: 10px;
+    border: 1px solid gray;
+}
+
+.modal-form button {
+    padding: 10px;
+    border-radius: 10px;
+    margin-top: 10px;
+    color: gray;
+    border: none;
+    font-weight: bold;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.modal-form button:hover {
+    color: black;
+}
+

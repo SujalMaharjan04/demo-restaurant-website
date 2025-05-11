@@ -1,4 +1,10 @@
-<?php include('admin_index.php'); ?>
+<?php 
+
+    session_start();
+    include('admin_index.php'); 
+    
+        
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>

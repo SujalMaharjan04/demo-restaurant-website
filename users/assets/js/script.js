@@ -24,21 +24,44 @@ document.addEventListener("DOMContentLoaded", () => { //to Show image when the p
     setInterval(() => {
         slideIndex++;
         showSlides();
-    }, 2000);
+    }, 4000);
+
+    //Modal function
+    let openbtn = document.getElementById("openModal");
+    let closebtn = document.getElementById("closebtn");
+    let modal = document.getElementById("modal");
+
+    openbtn.addEventListener("click", () => {
+        modal.style.display = "block";
+    })
+
+    closebtn.addEventListener("click", () => {
+        modal.style.display = "none";
+    })
+
+    window.addEventListener("click", (event) => {
+        if (event.target === modal) {
+            modal.style.display = "none";
+        }
+    })
 })
 
 
 //Form Validation
 document.getElementById("submit").addEventListener("click", (event) => {
-    const name = document.getElementById("name").trim();
-    const phoneNum = document.getElementById("phonenum").trim();
-    const numOfPeople = document.getElementById("numofPeople").trim();
-    const dateTime = document.getElementById("dateTime").trim();
+    const name = document.getElementById("name").value.trim();
+    const phoneNum = document.getElementById("phonenum").value.trim();
+    const numOfPeople = document.getElementById("numofPeople").value.trim();
+    const dateTime = document.getElementById("dateTime").value.trim();
     
     if (name == "" || phoneNum == "" || numOfPeople.value == "" || dateTime.value == "") {
         event.preventDefault();
         alert("Please fill out all the required fields");
     }
 })
+
+
+
+
 
 
