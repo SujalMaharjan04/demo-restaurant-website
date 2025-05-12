@@ -36,10 +36,11 @@
                             <th>No. of People</th>
                             <th>Date / Time</th>
                             <th>Message / Special Request</th>
-                            <th>Action</th>
+                            
                         </tr>
                     </thead>
                     <tbody>
+                        <!--Php for filling the table in the html with data from the database -->
                         <?php 
                             while ($row = mysqli_fetch_assoc($result)) { ?>
                                 <tr>
@@ -49,10 +50,7 @@
                                     <td><?= htmlspecialchars($row['num_of_people']) ?></td>
                                     <td><?= htmlspecialchars($row['dateTime']) ?></td>
                                     <td><?= htmlspecialchars($row['message']) ?: '-' ?></td>
-                                    <td>
-                                        <button>Approve</button>
-                                        <button>Unapprove</button>
-                                    </td>
+                                    
                                 </tr>
                             <?php }
                         ?>

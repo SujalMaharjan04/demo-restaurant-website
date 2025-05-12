@@ -3,23 +3,25 @@
     require("assets/php/db.php");
 
     //Checking for the validation of the reservation form
-    if ($_POST) {
-        if (isset($_POST['form-type'])) {
-            if ($_POST['form-type'] == "reservation") {
-                $name = mysqli_real_escape_string($link, $_POST['name']);
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        if (isset($_POST['form-type'])) { //Checking if value of form-type is present or not
+            if ($_POST['form-type'] == "reservation") { //when form-type is reservation
+                $name = mysqli_real_escape_string($link, $_POST['name']); //storing in variable after removing all escape characters
                 $phone_num = mysqli_real_escape_string($link, $_POST['phonenum']);
                 $email = mysqli_real_escape_string($link, $_POST['email']);
                 $numofPeople = (int) $_POST['numofPeople'];
                 $dateTime = mysqli_real_escape_string($link, $_POST['dateTime']);
                 $message = mysqli_real_escape_string($link, $_POST['message']);
-
-                $query = "INSERT INTO reservation (name, phone_number, email, num_of_people, dateTime, message) values ('$name', '$phone_num', '$email', $numofPeople, '$dateTime', '$message')";
-
-                if (!mysqli_query($link, $query)) {
-                    echo '<script>alert("Your registration has failed due to some error. Try again later.")</script>';
-                } 
+                
+                //prepared statement for preventing SQL injection
+                $query = $link->prepare("INSERT INTO reservation (name, phone_number, email, num_of_people, dateTime, message) values (?, ?, ?, ?, ?, ?)");
+                $query->bind_param("sssiss", $name, $phone_num, $email, $numofPeople, $dateTime, $message);
+                
+                if (!$query->execute()) {
+                    echo "Your reservation has been failed. Please try again later.";
+                }
             }
-            else {
+            else { //when form-type is login
                 $defaultUsername = "admin";
                 $defaultPassword = "admin1234";
                 $defaultPassword = password_hash($defaultPassword, PASSWORD_DEFAULT);
@@ -27,12 +29,20 @@
                 $password = $_POST['password'];
 
                 if (password_verify($password, $defaultPassword)) {
+                    $_SESSION['username'] = "admin"; 
                     header("Location: ../admin/admin_home.php");
+                }
+                else {
+                    echo "<script>alert('Your Username or Password was incorrect')</script>";
                 }
             }
 
         }
     }
+
+    //Query for selecting the data from menu
+    $queryInput = "SELECT item_name, price,  image_path FROM menu";
+    $result = mysqli_query($link, $queryInput);
 
 
 ?>
@@ -96,33 +106,22 @@
     <div class="menu" id = "menu"> <!--Menu Section-->
         <h2>Menu</h2>
         <div class="menu-items"> <!--Collection of Menu Items-->
-            <div class="menu-item"> <!--Menu item image and text-->
-                <div class="menu-item-text">
-                    <p>A Chicken Burger with fries</p>
-                </div>
-                <div class="menu-item-img">
-                    <img src = "assets/css/images/burger.jpg" alt = "image of burger">
-                </div>
+            
+                <!--Php for looping the database table and inserting the data in the html -->
+                <?php while($row = mysqli_fetch_assoc($result)) { ?>
+                    <div class="menu-item"> <!--Menu item image and text-->
+                        <span class = "menu-item-text">
+                            <p><?=htmlspecialchars($row['item_name']) ?></p>
+                            <p>: Rs<?=htmlspecialchars($row['price']) ?></p>
+                        </span>
+                        <div class="menu-item-img">
+                            <img src = "../admin/<?=htmlspecialchars($row['image_path']) ?>" alt = "<?= htmlspecialchars($row['item_name']) ?>">
+                        </div>
+                    </div>
+                        <?php } ?>
+               
                 
-            </div>
-            <div class="menu-item">
-                <div class="menu-item-text">
-                    <p>A Chicken Burger with fries</p>
-                </div>
-                <div class="menu-item-img">
-                    <img src = "assets/css/images/burger.jpg" alt = "image of burger">
-                </div>
-                
-            </div>
-            <div class="menu-item">
-                <div class="menu-item-text">
-                    <p>A Chicken Burger with fries</p>
-                </div>
-                <div class="menu-item-img">
-                    <img src = "assets/css/images/burger.jpg" alt = "image of burger">
-                </div>
-                
-            </div>
+            
         </div>
     </div>
 
@@ -183,6 +182,7 @@
         </div>
     </div>
 
+    <!-- Modal Form -->
     <div class="modal-container" id = "modal">
         <div class="modal-content">
             <span id = "closebtn">&times;</span>

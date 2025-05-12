@@ -1,4 +1,7 @@
-<?php include('admin_index.php'); ?>
+<?php 
+
+    include('admin_index.php'); 
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -32,19 +35,23 @@
                 </table>
             </div>
 
-            <div class="editAbout">
+            <div class="editMenu">
                 <form method = "post">
-                    <div class="editAbout-text">
+                    <div class="edit-text">
                         <label for = "add">Add a New About:</label>
                         <input type = "text" name = "add" id = "add">
                     </div>
-                    <div class="editAbout-img">
+                    <div class="edit-img">
                         <label for = "addImg">Add a New Image:</label>
                         <input type = "file" name = "addImg" id = "addImg">
                     </div>
-                    <div class="editAbout-button">
-                        <button type = "submit">Add</button>
-                        <button type = "reset">Reset</button>
+                    <div class="edit-info">
+                        <label for = "addInfo">Add Info:</label>
+                        <input type = "text" name = "addInfo" id = "addInfo">
+                    </div>
+                    <div class="edit-button">
+                        <button type = "submit" id = "submit">Add</button>
+                        <button type = "reset" id = "reset">Reset</button>
                     </div>
                 </form>
             </div>
