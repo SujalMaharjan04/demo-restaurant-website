@@ -9,6 +9,13 @@
     include('admin_index.php'); 
 
     include('admin_logout.php');
+
+    require('../users/assets/php/db.php');
+
+    $query = "SELECT COUNT(*) AS total FROM reservation";
+    $result = mysqli_query($link, $query);
+    $row = mysqli_fetch_assoc($result);
+    $total = $row['total'];
     
         
 ?>
@@ -30,7 +37,7 @@
             </div>
 
             <div class="main-content">
-                <div class="card">Reservation</div>
+                <div class="card">Reservation : <?= $total ?></div>
                 <div class="card">Menu</div>
 
             </div>
