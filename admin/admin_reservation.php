@@ -1,7 +1,9 @@
 <?php 
+    session_start();
     include('admin_index.php'); 
 
     require('../users/assets/php/db.php');
+    include('admin_logout.php');
 
     $query = 'SELECT name, phone_number, email, num_of_people, dateTime, message FROM reservation';
 
@@ -21,7 +23,9 @@
     <div class="main">
             <div class="main-top">
                 <h1>Dashboard</h1>
-                <button onclick = "logout()">Log Out</button>
+                <form method = "post">
+                    <button type = "submit" name = "logout" value = "logout">Log Out</button>
+                </form>
             </div>
 
             

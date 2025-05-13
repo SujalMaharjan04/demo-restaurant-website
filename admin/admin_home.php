@@ -8,13 +8,7 @@
     }
     include('admin_index.php'); 
 
-    //Function for log out button
-    if ($_SERVER["REQUEST_METHOD"] == "POST")  {
-        if ($_POST['logout'] == "logout") {
-            session_destroy();
-            header("Location: ../users/index.php");
-        }
-    }
+    include('admin_logout.php');
     
         
 ?>

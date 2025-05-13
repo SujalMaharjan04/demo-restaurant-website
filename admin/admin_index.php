@@ -12,7 +12,6 @@
             <div class="dashboard-item">
                 <a href = "admin_reservation.php">Reservation</a>
                 <a href = "admin_menu.php">Menu</a>
-                <a href = "admin_about.php">About</a>
             </div>
         </div>
 
