@@ -1,11 +1,6 @@
 <?php 
 
     session_start();
-    //To prevent access to admin page without logging in
-    if (!isset($_SESSION['username'])) {
-        header("Location: ../users/index.php");
-        exit;
-    }
     include('admin_index.php'); 
 
     include('admin_logout.php');
