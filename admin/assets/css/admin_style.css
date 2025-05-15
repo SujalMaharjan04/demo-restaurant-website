@@ -53,11 +53,16 @@ body{
     align-items: center;
 }
 
-.main-top button {
+.main-top form button {
     font-size: 20px;
     padding: 16px;
     border-radius: 5px;
     cursor: pointer;
+    transition: 0.3s ease;
+}
+
+.main-top form button:hover {
+    background-color: gray;
 }
 
 .main-top h1 {
@@ -254,5 +259,7 @@ form input {
 .edit-form button:hover {
     color: black;
 }
+
+
 
 

@@ -1,7 +1,6 @@
 <?php
-
     //Function to check if logged in or not
-    if (!isset($_POST['username'])) {
+    if (!isset($_SESSION['username'])) {
         header("Location: ../users/index.php");
     }
     //Function for log out button
