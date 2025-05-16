@@ -8,10 +8,13 @@
     require('../users/assets/php/db.php');
 
     $query = "SELECT COUNT(*) AS total FROM reservation";
+    $menuQuery = "SELECT COUNT(*) AS menuTotal FROM menu";
+    $menuTotal = mysqli_query($link, $menuQuery);
+    $menu = mysqli_fetch_assoc($menuTotal);
     $result = mysqli_query($link, $query);
     $row = mysqli_fetch_assoc($result);
     $total = $row['total'];
-    
+    $menuTotal = $menu['menuTotal'];
         
 ?>
 <!DOCTYPE html>
@@ -33,7 +36,7 @@
 
             <div class="main-content">
                 <div class="card">Reservation : <?= $total ?></div>
-                <div class="card">Menu</div>
+                <div class="card">Menu : <?= $menuTotal ?></div>
 
             </div>
     </div>
