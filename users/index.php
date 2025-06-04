@@ -107,7 +107,7 @@
                         <button type = "submit" id = "logout" name = "logout">Log Out</button>
                     </form>
                 <?php else: ?>
-                    <button type = "button" id = "openModal">Log In <br>/<br> Sign In</button>
+                    <button type = "button" id = "openModal">Log In <br>/<br> Sign Up</button>
                 <?php endif; ?>
             </div>
         
