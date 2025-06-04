@@ -28,22 +28,38 @@ document.addEventListener("DOMContentLoaded", () => { //to Show image when the p
 
     //Modal function
     let openbtn = document.getElementById("openModal");
-    let closebtn = document.getElementById("closebtn");
-    let modal = document.getElementById("modal");
+    let closebtn = document.querySelectorAll(".closebtn");
+    let loginModal = document.getElementById("modal");
+    let signModal = document.getElementById("modal-signup");
+    let signup = document.getElementById("to-signup");
+    let login = document.getElementById("to-login");
 
     openbtn.addEventListener("click", () => {
-        modal.style.display = "block";
+        loginModal.style.display = "block";
+        signModal.style.display = "none";
     })
 
-    closebtn.addEventListener("click", () => {
-        modal.style.display = "none";
+    closebtn.forEach(btn => {
+        btn.onclick = () => {
+            loginModal.style.display = "none";
+            signModal.style.display = "none";
+        }
     })
-
     window.addEventListener("click", (event) => {
         if (event.target === modal) {
             modal.style.display = "none";
         }
     })
+
+    signup.onclick = () => {
+        loginModal.style.display = "none";
+        signModal.style.display = "block";
+    }
+
+    login.onclick = () => {
+        loginModal.style.display = "block";
+        signModal.style.display = "none";
+    }
 })
 
 

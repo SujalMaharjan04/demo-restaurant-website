@@ -326,7 +326,7 @@ form {
     margin: 10%;
     padding: 30px;
     background-color:white;
-    width: 300px;
+    width: 350px;
     border-radius: 10px;
     box-shadow: 0 0 10px black;
     position: relative;
@@ -339,7 +339,7 @@ form {
     font-size: 30px;
 }
 
-#closebtn {
+.closebtn {
     position: absolute;
     top: 15px;
     right: 30px;
@@ -349,7 +349,7 @@ form {
     cursor: pointer;
 }
 
-#closebtn:hover {
+.closebtn:hover {
     color: rgba(128, 128, 128, 0.368);
 }
 
@@ -379,5 +379,37 @@ form {
 
 .modal-form button:hover {
     color: black;
+}
+
+.toggle {
+    margin-top: 16px;
+    font-size: 1rem;
+    border-style: none;
+    text-decoration: underline;
+    text-align: center;
+    background-color: white;
+    color: black;
+}
+
+.toggle:hover {
+    color: blue;
+}
+
+#logout {
+    margin: 6px;
+    width: 100px;
+    font-weight: bold;
+    font-size: 1rem;
+    letter-spacing: 0.5px;
+    background-color: rgba(229, 163, 20, 0.425);
+    color: white;
+    border-radius: 10px;
+    border: 2px solid rgba(0, 0, 0, 0);
+    transition: 0.3s ease;
+}
+
+#logout:hover {
+    cursor:pointer;
+    box-shadow: 5px 5px 10px 10px rgb(0, 0, 0);
 }
 

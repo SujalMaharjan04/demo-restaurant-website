@@ -2,6 +2,13 @@
     session_start();
     require("assets/php/db.php");
 
+    $isLoggedIn = isset($_SESSION['username']);
+
+    if (isset($_POST['logout'])) {
+        session_destroy();
+        header("Location: index.php");
+        exit();
+    }
     //Checking for the validation of the reservation form
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if (isset($_POST['form-type'])) { //Checking if value of form-type is present or not
@@ -18,22 +25,46 @@
                 $query->bind_param("sssiss", $name, $phone_num, $email, $numofPeople, $dateTime, $message);
                 
                 if (!$query->execute()) {
-                    echo "Your reservation has been failed. Please try again later.";
+                    echo "<script>alert('Your reservation has been failed. Please try again later.')</script>";
                 }
             }
-            else { //when form-type is login
-                $defaultUsername = "admin";
-                $defaultPassword = "admin1234";
-                $defaultPassword = password_hash($defaultPassword, PASSWORD_DEFAULT);
+            else if ($_POST["form-type"] == "login") { //when form-type is login
                 $username = $_POST['username'];
                 $password = $_POST['password'];
 
-                if (password_verify($password, $defaultPassword)) {
+                if ($username == "admin" && $password == "admin1234") {
                     $_SESSION['username'] = "admin"; 
                     header("Location: ../admin/admin_home.php");
                 }
+                else if (isset($username) && isset($password)){
+                    $query_login = "SELECT username , password FROM Customer WHERE Username = '$username'";
+                    $result = mysqli_query($link, $query_login);
+                    if ($row = mysqli_fetch_assoc($result)) {
+                        if (password_verify($password, $row['password'])) {
+                            echo "alert('Login Successful')";
+                        } else {
+                            echo "<script>alert('password NOt Matched')</script>";
+                        }
+                    } else {
+                        echo "<script>alert('Username Incorrect')</script>";
+                    }
+                }
                 else {
-                    echo "<script>alert('Your Username or Password was incorrect')</script>";
+                    echo "<script>alert('Please enter the username and password')</script>";
+                }
+            } else {
+                $username = $_POST['username'];
+                $password = $_POST['password'];
+
+                if (isset($username) && isset($password)) {
+                    $password = password_hash($password, PASSWORD_DEFAULT);
+                    $query_signup = "INSERT INTO CUSTOMER (username, password) VALUES ('$username', '$password')";
+                    $result = mysqli_query($link, $query_signup);
+
+                    $_SESSION['username'] = $username;
+                    header("Location: index.php");
+                } else {
+                    echo "<script>alert('Username or Password not entered')</script>";
                 }
             }
 
@@ -70,7 +101,14 @@
                 <a href = "#about">About</a>              
                 <a href = "#menu">Menu</a>              
                 <a href = "#reservation">Reservation</a>
-                <button type = "button" id = "openModal">Log In</button>
+                
+                <?php if ($isLoggedIn): ?>
+                    <form method = "post" style = "display: inline">
+                        <button type = "submit" id = "logout" name = "logout">Log Out</button>
+                    </form>
+                <?php else: ?>
+                    <button type = "button" id = "openModal">Log In <br>/<br> Sign In</button>
+                <?php endif; ?>
             </div>
         
     </div>
@@ -124,7 +162,7 @@
             
         </div>
     </div>
-
+    <?php if ($isLoggedIn) : ?>
     <div class="reservation" id = "reservation"> <!--Reservation Section-->
         <h2>Reservation</h2>
         <div class="form-block">
@@ -168,7 +206,12 @@
             </form>
         </div>
     </div>
-
+    <?php else: ?>
+        <div class="reservation" id = "reservation">
+            <h2>Please Log In to make a Reservation</h2>
+        </div>
+    
+    <?php endif; ?>
     <div class="footer"> <!--Footer Section-->
         <div class="icons"> <!--Social Media Icons-->
             <a class = "icon"><i class="fa-brands fa-facebook"></i></a>
@@ -185,7 +228,7 @@
     <!-- Modal Form -->
     <div class="modal-container" id = "modal">
         <div class="modal-content">
-            <span id = "closebtn">&times;</span>
+            <span class = "closebtn">&times;</span>
             <h2>Log In</h2>
             <form class = "modal-form" method = "post">
                 <input type = "hidden" name = "form-type" value = "login">
@@ -196,6 +239,27 @@
                 <input type = "password" name = "password" id = "password">
 
                 <button type = "submit" id = "submit-btn">Log In</button>
+
+                <a  id = "to-signup" class = "toggle">Don't have an Account. Sign Up</a>
+            </form>
+        </div>
+    </div>
+
+    <div class="modal-container" id = "modal-signup">
+        <div class="modal-content">
+            <span class = "closebtn">&times;</span>
+            <h2>Sign Up</h2>
+            <form class="modal-form" method = "post">
+                <input type = "hidden" name = "form-type" value = "signup">
+                <label for = "username">Username:</label>
+                <input type = "text" name = "username" id = "username">
+
+                <label for = "password">Password:</label>
+                <input type = "password" name = "password" id = "password">
+
+                <button type = "submit" id = "submit-btn">Sign Up</button>
+
+                <a id = "to-login"  class = "toggle" >Already have an Account. Log In</a>
             </form>
         </div>
     </div>
