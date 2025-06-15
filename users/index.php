@@ -36,14 +36,17 @@
                     $_SESSION['username'] = "admin"; 
                     header("Location: ../admin/admin_home.php");
                 }
-                else if (isset($username) && isset($password)){
-                    $query_login = "SELECT username , password FROM Customer WHERE Username = '$username'";
+                else if (!empty(trim($username)) && !empty(trim($password)) ){
+                    $query_login = "SELECT username , password FROM Customer WHERE username = '$username'";
                     $result = mysqli_query($link, $query_login);
                     if ($row = mysqli_fetch_assoc($result)) {
                         if (password_verify($password, $row['password'])) {
-                            echo "alert('Login Successful')";
+                            echo "<script>alert('Login Successful')</script>";
+                            $_SESSION['username'] = $username;
+                            header("Location: index.php");
+                            exit();
                         } else {
-                            echo "<script>alert('password NOt Matched')</script>";
+                            echo "<script>alert('password not Matched')</script>";
                         }
                     } else {
                         echo "<script>alert('Username Incorrect')</script>";
@@ -52,17 +55,26 @@
                 else {
                     echo "<script>alert('Please enter the username and password')</script>";
                 }
-            } else {
-                $username = $_POST['username'];
-                $password = $_POST['password'];
+            } else if ($_POST["form-type"] == "signup") {
+                $username = $_POST['username1'];
+                $password = $_POST['password1'];
 
                 if (isset($username) && isset($password)) {
-                    $password = password_hash($password, PASSWORD_DEFAULT);
-                    $query_signup = "INSERT INTO CUSTOMER (username, password) VALUES ('$username', '$password')";
-                    $result = mysqli_query($link, $query_signup);
+                    
 
-                    $_SESSION['username'] = $username;
-                    header("Location: index.php");
+                    $query_check = "SELECT username FROM Customer WHERE username = '$username'";
+                    $result1 = mysqli_query($link, $query_check);
+
+                    if ($row = mysqli_fetch_assoc($result1)) {
+                        echo "<script>alert('Username already in use')</script>";
+                    } else {
+                        $password = password_hash($password, PASSWORD_DEFAULT);
+                        $query_signup = "INSERT INTO CUSTOMER (username, password) VALUES ('$username', '$password')";
+                        $result = mysqli_query($link, $query_signup);
+                        $_SESSION['username'] = $username;
+                        header("Location: index.php");
+                        exit();
+                    }
                 } else {
                     echo "<script>alert('Username or Password not entered')</script>";
                 }
@@ -95,7 +107,7 @@
                 <a href = ""><img src = "assets/css/images/r.avif"  id = "logo"></a>
                 <a href = "#">Restaurant Name</a>
             </div>
-
+            
             <div class="navbar-menu">        
                 <a href = "#home">Home</a>  
                 <a href = "#about">About</a>              
@@ -107,12 +119,29 @@
                         <button type = "submit" id = "logout" name = "logout">Log Out</button>
                     </form>
                 <?php else: ?>
-                    <button type = "button" id = "openModal">Log In <br>/<br> Sign Up</button>
+                    <button type = "button" id = "openModal">Log In / Sign Up</button>
                 <?php endif; ?>
+                
             </div>
-        
+            <div class = "burger-menu">
+                     <i id = "burger" class="fa-solid fa-bars"></i>
+                </div>
+            
     </div>
 
+    <div class="menu-nav-bar">
+        <a href = "#home">Home</a>  
+        <a href = "#about">About</a>              
+        <a href = "#menu">Menu</a>              
+        <a href = "#reservation">Reservation</a>
+        <?php if ($isLoggedIn): ?>
+            <form method = "post" style = "display: inline">
+                <button type = "submit" id = "logout" name = "logout">Log Out</button>
+            </form>
+            <?php else: ?>
+                <button type = "button" id = "openModal">Log In <br>/<br> Sign Up</button>
+            <?php endif; ?>
+    </div>
     
     <div class="home" id = "home"> <!--Home Section-->
         <div class="slides"> <!--Image Slider-->
@@ -252,18 +281,18 @@
             <form class="modal-form" method = "post">
                 <input type = "hidden" name = "form-type" value = "signup">
                 <label for = "username">Username:</label>
-                <input type = "text" name = "username" id = "username">
+                <input type = "text" name = "username1" id = "username1">
 
                 <label for = "password">Password:</label>
-                <input type = "password" name = "password" id = "password">
+                <input type = "password" name = "password1" id = "password1">
 
-                <button type = "submit" id = "submit-btn">Sign Up</button>
+                <button type = "submit" id = "submit-btn1">Sign Up</button>
 
                 <a id = "to-login"  class = "toggle" >Already have an Account. Log In</a>
             </form>
         </div>
     </div>
 
-    <script src = "assets/js/script.js"></script>
+    <script src = "assets/js/script.js" defer></script>
 </body>
 </html>

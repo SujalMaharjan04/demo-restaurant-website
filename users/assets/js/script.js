@@ -60,21 +60,37 @@ document.addEventListener("DOMContentLoaded", () => { //to Show image when the p
         loginModal.style.display = "block";
         signModal.style.display = "none";
     }
+
+
+    //burger activation
+    let burger = document.querySelector("#burger");
+    let menuNav = document.querySelector(".menu-nav-bar");
+    
+    burger.addEventListener("click", () => {  
+        menuNav.classList.toggle("active");
+        
+    })
 })
 
 
 //Form Validation
-document.getElementById("submit").addEventListener("click", (event) => {
-    const name = document.getElementById("name").value.trim();
-    const phoneNum = document.getElementById("phonenum").value.trim();
-    const numOfPeople = document.getElementById("numofPeople").value.trim();
-    const dateTime = document.getElementById("dateTime").value.trim();
-    
-    if (name == "" || phoneNum == "" || numOfPeople.value == "" || dateTime.value == "") {
-        event.preventDefault();
-        alert("Please fill out all the required fields");
-    }
-})
+let submitbtn = document.getElementById("submit")
+if (submitbtn) {
+    submitbtn.addEventListener("click", (event) => {
+        const name = document.getElementById("name").value.trim();
+        const phoneNum = document.getElementById("phonenum").value.trim();
+        const numOfPeople = document.getElementById("numofPeople").value.trim();
+        const dateTime = document.getElementById("dateTime").value.trim();
+        
+        if (name == "" || phoneNum == "" || numOfPeople == "" || dateTime == "") {
+            event.preventDefault();
+            alert("Please fill out all the required fields");
+        }
+    })
+}
+
+
+
 
 
 

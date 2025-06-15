@@ -16,7 +16,7 @@ body {
 
 .navbar {
     display: flex;
-    justify-content: space-between;
+    justify-content: end;
     align-items: center;
     padding: 0px 2px;
     height: 110px;
@@ -32,6 +32,8 @@ body {
     display: flex;
     align-items: center;
     gap: 1rem;
+    position: relative;
+    right: 550px;
 }
 
 a {
@@ -413,3 +415,194 @@ form {
     box-shadow: 5px 5px 10px 10px rgb(0, 0, 0);
 }
 
+.burger-menu {
+    display: none;
+}
+.menu-nav-bar {
+    max-height: 0;
+    opacity: 0;
+}
+
+
+@media (max-width: 767px) {
+
+    * {
+        overflow-x: hidden;
+    }
+    .navbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        height: 75px;
+    }
+
+    #logo {
+        height: 50px;
+        width: 50px;
+    }
+
+    .navbar-logo {
+        font-size: 0.5rem;
+        position: relative;
+        right: 0;
+        left: 10px;
+    }
+
+    .navbar-logo a {
+        font-size: 0.7rem;
+    }
+
+    .navbar-menu {
+        font-size: 0.5rem;
+        display: none;
+    }
+
+    #openModal {
+        font-size: 0.7rem;
+        width: 100%;
+        height: auto;
+        
+    }
+
+    .burger-menu {
+        font-size: 1rem;
+        cursor: pointer;
+        display: block;
+        position: relative;
+        right: 30px;
+    }
+
+    .menu-nav-bar {
+        display: flex;
+        flex-direction: column;
+        position: absolute;
+        background-color: orange;
+        z-index: 12;
+        max-height: 0;
+        overflow: hidden;
+        width: 100%;
+        opacity: 0;
+        transition: max-height 0.3s ease, opacity 0.3s ease;   
+    }
+
+    .menu-nav-bar.active {
+        max-height: 1000px;
+        opacity: 1;
+    }
+
+    .menu-nav-bar a {
+        margin: 20px;
+        border-bottom: 1px solid white;
+        padding: 20px 0 20px 20px;
+        color: seashell;
+        font-size: 1rem;
+    }
+
+    .menu-nav-bar a:hover {
+        color: rgb(127, 109, 96);
+        max-height: 240px;
+    }
+
+
+
+    .home {
+        max-width: 1000px;
+        position: relative;
+        margin: auto;
+        overflow: hidden;
+        max-height: 250px;
+    }
+
+    .about h2 {
+        font-size: 1.5rem;
+    }
+
+    .intro {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        justify-content: center;
+        align-items: center;
+        
+    }
+
+    .intro-img {    
+        width: 100%;
+        max-width: 500px;
+        min-height: auto;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        
+    }
+
+    .intro-img img {
+        width: 100%;
+        height: auto;
+        object-fit: cover;
+        display: block;
+    }
+
+    .intro-text {
+        font-size: 1rem;
+    }
+
+    .menu>h2 {
+        font-size: 1.5rem;
+    }
+
+    .menu-item {
+        width: 100%;
+        max-width: 500px;
+        height: auto;
+        font-size: 0;
+        margin-bottom: 0;
+        padding-bottom: 0;
+    }
+
+    .menu-item-text {
+        font-size: 0.75rem;
+        display: flex;
+        justify-content: center;
+    }
+
+    .menu-item-text p {
+        padding: 20px;
+    }
+
+    .menu-item-img{
+        max-width: 500px;
+        width: 100%;
+        height: auto;
+        display: block;
+    }
+
+    .menu-item-img img {
+        object-fit: cover;
+        width: 100%;
+        max-width: 500px;
+        height: auto;
+    }
+
+    .reservation>h2 {
+        font-size: 1.5rem;
+    }
+
+    .footer {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+    }
+
+    .icons {
+        display: flex;
+    }
+    .icon {
+        font-size: 1rem;
+    }
+
+    .text {
+        font-size: 0.5rem;
+    }
+}
