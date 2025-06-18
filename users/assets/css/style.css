@@ -628,4 +628,18 @@ form {
         height: 100%;
         overflow: hidden;
     }
+
+    #logout {
+        width: auto;
+        height: auto;
+        margin-left: 165px;
+        margin-bottom: 20px;
+        font-size: 1.2rem;
+        background-color: rgba(253, 179, 42, 0.922);
+        border-radius: 0%;
+    }
+
+    .form-group>input {
+        width: 98%;
+    }
 }

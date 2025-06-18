@@ -40,10 +40,16 @@
                     $query_login = "SELECT username , password FROM Customer WHERE username = '$username'";
                     $result = mysqli_query($link, $query_login);
                     if ($row = mysqli_fetch_assoc($result)) {
-                        if (password_verify($password, $row['password'])) {
-                            echo "<script>alert('Login Successful')</script>";
+                        echo "<script>console.log('Username: ". addslashes($username) . " '); console.log('Typed Password: " . addslashes($password) . "'); console.log('Hased password: " . addslashes($row['password']) . "');</script>";
+                        $check = password_verify($password, $row['password']);
+                        echo "<script>console.log(': " . ($check ? "true" : "false") . "' );</script>";
+                        if (password_verify(trim($password), trim($row['password']))) {
                             $_SESSION['username'] = $username;
                             header("Location: index.php");
+                             echo "<script>
+                                alert('Login Successful');
+                                window.location.href = 'index.php';
+                                </script>";
                             exit();
                         } else {
                             echo "<script>alert('password not Matched')</script>";
