@@ -27,17 +27,20 @@ document.addEventListener("DOMContentLoaded", () => { //to Show image when the p
     }, 4000);
 
     //Modal function
-    let openbtn = document.getElementById("openModal");
+    let openbtn = document.querySelectorAll(".openModal");
     let closebtn = document.querySelectorAll(".closebtn");
     let loginModal = document.getElementById("modal");
     let signModal = document.getElementById("modal-signup");
     let signup = document.getElementById("to-signup");
     let login = document.getElementById("to-login");
 
-    openbtn.addEventListener("click", () => {
+    openbtn.forEach((btn) => {
+        btn.addEventListener("click", () => {
         loginModal.style.display = "block";
         signModal.style.display = "none";
     })
+    })
+    
 
     closebtn.forEach(btn => {
         btn.onclick = () => {
